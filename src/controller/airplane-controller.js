@@ -22,4 +22,19 @@ async function createAirplane(req, res) {
   }
 }
 
-module.exports = { createAirplane }
+async function getAirplanes(req,res){
+   try {
+     const airplanes=await airplaneService.getAirplanes();
+     SuccessResponse.data=airplanes;
+      return res
+             .status(StatusCodes.OK)
+             .json(SuccessResponse);
+   } catch (error) {
+     ErrorResponse.error=error;
+    return res
+             .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+             .json(ErrorResponse);
+   }
+}
+
+module.exports = { createAirplane,getAirplanes }

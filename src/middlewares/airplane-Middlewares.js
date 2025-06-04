@@ -4,7 +4,7 @@ const appError = require('../utils/errors/app-Error')
 
 function ValidateCreateRequest(req,res,next){
    if(!req.body.modelNumber){
-      ErrorResponse.message="something went wrong while creating req",
+      ErrorResponse.message="something went wrong while creating airplane",
      
       ErrorResponse.error= new appError(["Model number not found in the incoming request in correct form"],StatusCodes.BAD_REQUEST)
          return res.

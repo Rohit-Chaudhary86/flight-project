@@ -1,4 +1,5 @@
 module.exports={
-    airplaneMiddlewares:require('./airplane-Middlewares')
+    airplaneMiddlewares:require('./airplane-Middlewares'),
+    CityMiddlewares:require('./city-middleware')
     
 }

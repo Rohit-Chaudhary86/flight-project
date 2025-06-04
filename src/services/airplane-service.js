@@ -53,7 +53,9 @@ async function destroyAirplane(id) {
         const response=await airplaneRepo.destroy(id);
         return response;
     } catch (error) {
-        
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+           throw new appError('the airplane you requested to delete is not present',error.statusCode)
+       }
         throw new appError("Can't fetch data of all planes ",StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }

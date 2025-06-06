@@ -11,6 +11,7 @@ async function createCity(data){
    } catch  (error) {
     // console.log(error)
     // if(error.name=='SequelizeUniqueConstraintError')
+    console.error("City Service Error:", error);
     if(error.name=='SequelizeValidationError'||error.name=='SequelizeUniqueConstraintError'){
         let explanation=[];
         error.errors.forEach((err) => {

@@ -3,6 +3,7 @@ const {ErrorResponse}=require('../utils/common')
 const appError = require('../utils/errors/app-Error')
 
 function ValidateCreateRequest(req,res,next){
+     console.log("✅ Request body received:", req.body);
    if(!req.body.name){
       ErrorResponse.message="something went wrong while creating airport",
      

@@ -22,7 +22,7 @@ async function createAirport(data){
    }
 }
 
-async function getAirplort(){
+async function getAirports(){
     try {
         
         const airport=await airportRepo.getAll();
@@ -60,4 +60,4 @@ async function destroyAirport(id) {
     }
 }
 
-module.exports={createAirport,getAirport,getAirport,destroyAirport}
+module.exports={createAirport,getAirports,getAirport,destroyAirport}

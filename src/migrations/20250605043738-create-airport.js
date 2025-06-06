@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique:true,
       },
-      cityid: {
+      cityId: {
         type: Sequelize.INTEGER,
         allowNull:false 
       },

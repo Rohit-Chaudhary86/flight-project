@@ -5,8 +5,10 @@ const appError = require('../utils/errors/app-Error');
 const flightRepo= new FlightRepo();
 
 async function createFlight(data){
+      console.log("FlightService.createFlight called with data:", data);
    try {
     const flight=await flightRepo.create(data)
+    console.log("Flight created:", flight);
     return flight;
    } catch (error) {
     console.log(' Error in flightRepo.create:', error);
@@ -15,7 +17,7 @@ async function createFlight(data){
         error.errors.forEach((err) => {
             explanation.push(err.message)
         });
-        console.log(explanation)
+        console.log("Validation errors:", explanation);
         throw new appError(explanation,StatusCodes.BAD_REQUEST);
         
     }

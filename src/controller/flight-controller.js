@@ -5,7 +5,9 @@ const { error } = require("winston");
 const {SuccessResponse,ErrorResponse}=require('../utils/common')
 
 async function createFlight(req, res) {
+  console.log(" createFlight controller invoked")
   try {
+     console.log(" Creating flight with data:", req.body);
     const flight = await FlightService.createFlight({
       flightNumber:req.body.flightNumber,
       airplaneId:req.body.airplaneId,
@@ -17,11 +19,13 @@ async function createFlight(req, res) {
       bordingGate:req.body.bordingGate,
       totalSeats:req.body.totalSeats
     });
+       console.log("Flight created successfully:", flight);
     SuccessResponse.data=flight;
     return res
-             .status(StatusCodes.CREATED)
+             .status(StatusCodes.OK)
              .json(SuccessResponse);
   } catch (error) {
+     console.error("CREATE FLIGHT ERROR:", error);
     ErrorResponse.error=error;
     return res
              .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)

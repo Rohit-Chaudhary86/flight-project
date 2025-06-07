@@ -1,4 +1,4 @@
-const CrudRepository=require('./crup-repo')
+const CrudRepository=require('./crud-repo')
 const {Airport} =require('../models')
 
 class AirportRepo extends CrudRepository{
@@ -7,6 +7,4 @@ class AirportRepo extends CrudRepository{
     }
 }
 
-module.exports={
-    AirportRepo,
-}
+module.exports=AirportRepo

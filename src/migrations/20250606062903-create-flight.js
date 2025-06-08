@@ -20,7 +20,7 @@ module.exports = {
           model:'Airplanes',
           key:'id'
         },
-        onDelete:'CASCADE',
+        onDelete:'CASCADE', 
       },
       departureAirportId: {
         type: Sequelize.STRING,

@@ -1,50 +1,60 @@
-const{Sequelize} = require('sequelize')
-const CrudRepository=require('./crud-repo')
-const {Flight,Airplane,Airport, sequelize,City} =require('../models')
+const { Sequelize } = require("sequelize");
+const CrudRepository = require("./crud-repo");
+const { Flight, Airplane, Airport, sequelize, City } = require("../models");
 
-class FlightRepo extends CrudRepository{
-    constructor(){
-         super(Flight)
-    }
+class FlightRepo extends CrudRepository {
+  constructor() {
+    super(Flight);
+  }
 
-    async getAllFlights(filter,sort){
-        const response=await this.model.findAll({
-            where :filter,
-            order:sort,
-            include:[{
-               model:Airplane,
-               required:true,
-               as: 'airplaneDetail'
-            },
-            {
-                model:Airport,
-                required:true,
-                as: 'departureAirport',
-                on:{
-                  col1:Sequelize.where(sequelize.col('Flight.departureAirportId'),'=',Sequelize.col('departureAirport.code'))
-                },
-                // include:{
-                //     model:City,
-                //     required:true
-                // }  
-            },
-            {
-              model:Airport,
-                required:true,
-                as: 'arrivalAirport',
-                on:{
-                  col1:Sequelize.where(sequelize.col('Flight.arrivalAirportId'),'=',Sequelize.col('arrivalAirport.code'))
-                },
-                // include:{
-                //     model:City,
-                //     required:true
-                // }
-            }
-            
-        ]
-        });
-        return response;
-    }
+  async getAllFlights(filter, sort) {
+    const response = await this.model.findAll({
+      where: filter,
+      order: sort,
+      include: [
+        {
+          model: Airplane,
+          required: true,
+          as: "airplaneDetail",
+        },
+        {
+          model: Airport,
+          required: true,
+          as: "departureAirport",
+          on: {
+            col1: Sequelize.where(
+              sequelize.col("Flight.departureAirportId"),
+              "=",
+              Sequelize.col("departureAirport.code")
+            ),
+          },
+           include:{
+            model:City,
+            required:true,
+            as:'city'
+           },
+        },
+        {
+          model: Airport,
+          required: true,
+          as: "arrivalAirport",
+          on: {
+            col1: Sequelize.where(
+              sequelize.col("Flight.arrivalAirportId"),
+              "=",
+              Sequelize.col("arrivalAirport.code")
+            ),
+          },
+           include:{
+            model:City,
+            required:true,
+            as:'c ity'
+           },
+        },
+      ],
+    });
+    return response;
+  }
 }
 
-module.exports=FlightRepo; 
+module.exports = FlightRepo;

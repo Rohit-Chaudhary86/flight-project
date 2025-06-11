@@ -78,4 +78,14 @@ async function getFlight(id){
     }
 }
 
-module.exports={createFlight,getAllFlights,getFlight}
+async function updateSeats(data){
+    try {
+      const response=await flightRepo.updateRemainingSeats(data.flightId,data.seats,data.dec);
+      return response
+    } catch (error) {
+      console.log(error)
+      throw new appError("Can't update data of fllight ",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+module.exports={createFlight,getAllFlights,getFlight,updateSeats}

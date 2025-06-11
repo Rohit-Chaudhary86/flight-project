@@ -8,7 +8,7 @@ router.post('/',
     FlightMiddlewares.ValidateCreateRequest,
     FlightController.createFlight);
 
-    // /api/v1/flights  GET
+    // /api/v1/flights?trips=DEL-BOM  GET
 router.get('/',
     FlightController.getAllFlights
 );
@@ -16,6 +16,12 @@ router.get('/',
    // /api/v1/flight/:id  GET
 router.get('/:id',
     FlightController.getFlight
+);
+
+// /api/v1/flights/:id/seats  PATCH 
+router.patch('/:id/seats',
+    FlightMiddlewares.validateUpdateSeatsRequest,
+    FlightController.updateSeats
 );
 
 module.exports=router;

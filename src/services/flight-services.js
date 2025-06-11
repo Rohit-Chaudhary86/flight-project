@@ -67,4 +67,15 @@ async function getAllFlights(query){
      }
 }
 
-module.exports={createFlight,getAllFlights}
+async function getFlight(id){
+     try {
+        
+        const flight=await flightRepo.get(id);
+        return flight;
+    } catch (error) {
+        
+        throw new appError("Can't fetch data of flight ",StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+module.exports={createFlight,getAllFlights,getFlight}

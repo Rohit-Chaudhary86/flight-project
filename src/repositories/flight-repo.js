@@ -30,11 +30,11 @@ class FlightRepo extends CrudRepository {
               Sequelize.col("departureAirport.code")
             ),
           },
-           include:{
-            model:City,
-            required:true,
-            as:'city'
-           },
+          include: {
+            model: City,
+            required: true,
+            as: "city",
+          },
         },
         {
           model: Airport,
@@ -47,26 +47,40 @@ class FlightRepo extends CrudRepository {
               Sequelize.col("arrivalAirport.code")
             ),
           },
-           include:{
-            model:City,
-            required:true,
-            as:'city'
-           },
+          include: {
+            model: City,
+            required: true,
+            as: "city",
+          },
         },
       ],
     });
     return response;
   }
-  async updateRemainingSeats(flightId,seats,dec=true){
-    await db.sequelize.query(addRowLockOnFlights(flightId))
-    const flight=await Flight.findByPk(flightId) 
-      if(+dec){
-        await flight.decrement('totalSeats',{by:seats})
-      }else{
-        await flight.increment('totalSeats',{by:seats})
+  async updateRemainingSeats(flightId, seats, dec = true) {
+    const transaction = db.sequelize.transaction();
+    try {
+      await db.sequelize.query(addRowLockOnFlights(flightId));
+      const flight = await Flight.findByPk(flightId);
+      if (+dec) {
+        await flight.decrement(
+          "totalSeats",
+          { by: seats },
+          { transaction: transaction }
+        );
+      } else {
+        await flight.increment(
+          "totalSeats",
+          { by: seats },
+          { transaction: transaction }
+        );
       }
-      
+      await transaction.commit;
       return flight;
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
   }
 }
 
